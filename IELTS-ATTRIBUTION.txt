@@ -1,0 +1,8 @@
+Source: Word Atlas contributors (词光)
+Source dataset: https://github.com/designfuchen/word-atlas/blob/main/data/word-atlas.json
+Project notice: https://github.com/designfuchen/word-atlas/blob/main/CONTENT_LICENSE.md
+Content licence: Creative Commons Attribution 4.0 International
+https://creativecommons.org/licenses/by/4.0/
+
+Adaptations: extracted single-word English headwords and their Chinese glosses, combined and deduplicated selected glosses, sorted, and converted to TSV; the built-in subset retains source CEFR levels B1–C2. The optional TSV contains all supported levels. Phrases and punctuated abbreviations are not included because the subtitle matcher currently matches individual words.
+The source describes its text as AI-generated and not manually proofread entry by entry. This is an unofficial IELTS preparation list; no affiliation or endorsement is implied.

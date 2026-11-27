@@ -1,0 +1,87 @@
+.efvocab-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,340px);align-items:start;gap:clamp(14px,2vw,23px);min-width:0;grid-column:1/-1}
+.efvocab-layout>.efvocab-player{min-width:0;width:auto;max-width:none;margin:0}
+.efvocab{--ef-bg:var(--surface,var(--paper,var(--panel,Canvas)));--ef-line:var(--line,var(--border,#9ba7bc67));--ef-accent:var(--accent,#355da4);--ef-on:var(--on-accent,var(--button,#fff));border:1px solid var(--ef-line);border-radius:21px;background:var(--ef-bg);color:inherit;min-width:0;overflow-wrap:anywhere;box-sizing:border-box;box-shadow:0 9px 26px #18234218}
+.efvocab-head{padding:18px 17px 13px;background:color-mix(in srgb,var(--ef-accent) 9%,transparent);border-radius:20px 20px 0 0;border-bottom:1px solid var(--ef-line)}
+.efvocab h2{font-size:24px;line-height:1.12;margin:5px 0 13px;letter-spacing:-.03em}.efvocab h3{font-size:23px;line-height:1.2;margin:8px 0 4px}
+.efvocab-label{font:700 10px/1.5 ui-monospace,monospace;letter-spacing:.10em;margin:0;overflow-wrap:anywhere}
+.efvocab-stats,.efvocab-nav,.efvocab-actions,.efvocab-buttons,.efvocab-form{display:flex;gap:6px}
+.efvocab-stats span,.efvocab-chip{font-size:11px;font-weight:650;border:1px solid var(--ef-line);padding:3px 7px;border-radius:30px;line-height:1.45;white-space:nowrap}
+.efvocab-nav{padding:10px 11px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.efvocab-body{padding:12px 12px 15px;min-width:0}.efvocab-body>*+*{margin-top:8px}
+.efvocab button,.efvocab select,.efvocab input{font:inherit;font-size:13px;color:inherit;min-width:0;box-sizing:border-box}
+.efvocab button{font-weight:650;background:transparent;border:1px solid var(--ef-line);border-radius:9px;padding:8px 8px;min-height:35px;cursor:pointer;line-height:1.25}
+.efvocab-nav button{font-size:11px;padding:6px 3px}.efvocab button[aria-pressed=true]{background:color-mix(in srgb,currentColor 11%,transparent);border-color:currentColor}
+.efvocab button:hover:not(:disabled){filter:brightness(.92);box-shadow:0 1px 5px #11223318}.efvocab button:disabled{opacity:.48;cursor:default}
+.efvocab .efvocab-primary{background:var(--ef-accent);color:var(--ef-on);border-color:transparent}.efvocab .efvocab-quiet{border:0}
+.efvocab :is(button,input,summary,select):focus-visible{outline:2px solid var(--ef-accent);outline-offset:2px}
+.efvocab-list{max-height:493px;overflow:auto;overscroll-behavior:contain;display:grid;gap:6px;padding:1px 3px 2px 1px}
+.efvocab-entry,.efvocab-overview,.efvocab-hero,.efvocab-feedback{border:1px solid var(--ef-line);border-radius:13px;background:color-mix(in srgb,currentColor 4%,transparent)}
+.efvocab-overview,.efvocab-hero,.efvocab-feedback{padding:11px}
+.efvocab-row{display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;gap:5px;padding:8px;cursor:pointer;list-style:none}
+.efvocab-row::-webkit-details-marker{display:none}.efvocab-row strong{overflow-wrap:anywhere;font-size:14px}
+.efvocab-number{font:600 10px/1.5 ui-monospace,monospace;opacity:.72}
+.efvocab-entry[open] .efvocab-row{border-bottom:1px solid var(--ef-line)}.efvocab-inner{padding:8px 10px 11px}
+.efvocab p{margin:4px 0;line-height:1.48}.efvocab-meta{font-size:11px;opacity:.8}.efvocab-sub,.efvocab-empty,.efvocab-message,.efvocab-hero p:not(.efvocab-label){font-size:13px}
+.efvocab-example,.efvocab-meaning,.efvocab-feedback p{font-size:14px}
+.efvocab-example mark{color:inherit;background:color-mix(in srgb,var(--ef-accent) 25%,transparent);padding:0 .13em}
+.efvocab-actions,.efvocab-form{margin-top:8px}.efvocab-actions button,.efvocab-form input{flex:1}.efvocab-buttons{display:grid;grid-template-columns:1fr 1fr}
+.efvocab input,.efvocab select{border:1px solid var(--ef-line);border-radius:8px;background:var(--ef-bg);padding:8px}
+.efvocab-setting{display:grid;gap:6px;font-size:13px;margin:10px 0}.efvocab-setting input{width:100%}
+.efvocab-message{padding:0 12px 11px}.efvocab-message:empty{display:none}
+@media(max-width:820px){.efvocab-layout{grid-template-columns:minmax(0,1fr)}}
+
+/* Listening workspace: player and timer stay together; vocabulary gets a dedicated rail. */
+.shell:has(.efvocab-session){width:min(calc(100% - 64px),1340px)}
+.session-grid.efvocab-session{grid-template-columns:minmax(0,1fr);grid-template-areas:"watch" "timer" "study";grid-template-rows:auto auto auto;gap:16px;align-items:start}
+.session-grid.efvocab-session>.watch{grid-area:watch}
+.session-grid.efvocab-session>.timer{margin:0;grid-area:timer}
+.session-grid.efvocab-session>.efvocab{grid-area:study}
+@media(min-width:980px){
+  .session-grid.efvocab-session{grid-template-columns:minmax(0,1fr) minmax(340px,390px);grid-template-areas:"watch study" "timer study";grid-template-rows:auto 1fr;column-gap:22px}
+}
+@media(max-width:860px){.shell:has(.efvocab-session){width:calc(100% - 36px)}}
+@media(max-width:620px){.shell:has(.efvocab-session){width:calc(100% - 24px)}.session-grid.efvocab-session{gap:12px}}
+.session-grid.efvocab-session>.timer{
+  display:grid;align-items:center;grid-template-columns:minmax(104px,auto) minmax(110px,auto) minmax(0,1fr);
+  grid-template-areas:"eyebrow time status" "title time bar" "hint hint note" "continue continue continue";
+  column-gap:18px;row-gap:4px;padding:13px 16px;border-radius:17px
+}
+.efvocab-session>.timer .kicker{grid-area:eyebrow;margin:0;font-size:.67rem}
+.efvocab-session>.timer h2{grid-area:title;margin:0;font-size:.91rem}
+.efvocab-session>.timer .counter{grid-area:time;margin:0;font-size:clamp(1.8rem,3.3vw,2.65rem);line-height:1.05}
+.efvocab-session>.timer #progress{grid-area:bar;margin:1px 0 0;width:100%}
+.efvocab-session>.timer .timer-mode{grid-area:status;margin:0;text-align:right;min-height:1em;line-height:1.25}
+.efvocab-session>.timer .hint{grid-area:hint;margin:6px 0 0;font-size:.75rem;line-height:1.45}
+.efvocab-session>.timer .timer-note{grid-area:note;margin:6px 0 0;padding:0;border:0;text-align:right;font-size:.75rem;line-height:1.45}
+.efvocab-session>.timer #continue{grid-area:continue;justify-self:start;margin-top:5px}
+@media(max-width:515px){
+  .session-grid.efvocab-session>.timer{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"eyebrow time" "title time" "status status" "bar bar" "hint hint" "note note" "continue continue";row-gap:4px;padding:11px 13px}
+  .efvocab-session>.timer :is(.timer-mode,.timer-note){text-align:left}
+  .efvocab-session>.timer .timer-mode:empty{display:none}
+}
+.efvocab{--ef-accent:var(--olive,var(--accent,#355da4));--ef-on:var(--button-text,var(--on-accent,#fff));border-radius:22px}
+.efvocab-head{padding:15px 17px 14px}
+.efvocab h2{margin:2px 0 10px;font-size:23px}
+.efvocab-stats{gap:8px}
+.efvocab-stats>span{flex:1;border-radius:9px;padding:5px 9px;font-size:12px;background:var(--ef-bg)}
+.efvocab-nav{gap:3px;margin:11px 12px 0;padding:3px;background:var(--paper,var(--ef-bg));border:1px solid var(--ef-line);border-radius:11px}
+.efvocab-nav button{border-color:transparent;font-size:12px;min-height:36px;padding-inline:1px}
+.efvocab-nav button[aria-pressed=true]{background:var(--ef-bg);border-color:var(--ef-line);color:var(--ef-accent);box-shadow:0 1px 3px #10203014}
+.efvocab-body{padding:11px 12px 13px}
+.efvocab-body>.efvocab-primary{display:block;width:100%;min-height:38px}
+.efvocab-overview{padding:9px 10px;background:transparent}
+.efvocab-overview .efvocab-label{letter-spacing:.025em;font:700 11px/1.4 system-ui,sans-serif}
+.efvocab-overview .efvocab-meta{margin-bottom:0}
+.efvocab-list{max-height:none;overflow:visible;display:block;padding:0;border:1px solid var(--ef-line);border-radius:13px}
+.efvocab-list>.efvocab-entry{border:0;border-radius:0;background:none}
+.efvocab-list>.efvocab-entry+.efvocab-entry{border-top:1px solid var(--ef-line)}
+.efvocab-row{grid-template-columns:22px minmax(0,1fr) auto 9px;padding:7px 9px;min-height:33px}
+.efvocab-row::after{content:'';border:solid currentColor;border-width:0 1.5px 1.5px 0;width:5px;height:5px;transform:rotate(45deg);opacity:.65}
+.efvocab-entry[open]>.efvocab-row::after{transform:rotate(225deg)}
+.efvocab-entry[open]>.efvocab-row,.efvocab-row:hover{background:color-mix(in srgb,var(--ef-accent) 7%,transparent)}
+.efvocab-chip{padding:2px 6px;font-size:10px}
+.efvocab-hero{background:color-mix(in srgb,var(--ef-accent) 8%,transparent);padding:14px 12px}
+.efvocab-hero h3{font-size:clamp(21px,2.3vw,26px)}
+.efvocab-body>.efvocab-form{align-items:stretch}
+.efvocab-body>.efvocab-form>input{min-height:42px}
+@media(max-width:400px){.efvocab-nav button{font-size:11px}.efvocab-body{padding-inline:9px}}

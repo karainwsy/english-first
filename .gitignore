@@ -1,0 +1,12 @@
+/daily-recommendation.json
+/media/
+*.mp4
+*.webm
+*.vtt
+*.srt
+*.bak
+*.tmp
+*.zip
+.env
+.env.*
+Thumbs.db

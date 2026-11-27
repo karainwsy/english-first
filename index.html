@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="ice">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>先听十分钟 · English First</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="theme.js"></script>
+<script type="module" src="ui.mjs"></script>
+<link rel="stylesheet" href="vocab-panel.css">
+<script type="module" src="vocab-panel.mjs"></script>
+</head>
+<body>
+<div class="shell">
+<header class="masthead">
+<div class="brand">
+<span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M9 21v-1a11 11 0 0 1 22 0v1M9 21h3a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-7Zm22 0h-3a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-7ZM20 19v8m-3-6v4m6-4v4" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span>先听十分钟 <small>ENGLISH FIRST</small></span>
+</div>
+<div class="header-tools"><details id="theme-menu" class="theme-menu"><summary>主题&nbsp;⌄</summary><div class="theme-panel"><fieldset><legend>页面配色</legend><label class="theme-choice">雾蓝<span aria-hidden="true" class="swatch swatch-ice"></span><input type="radio" name="page-theme" value="ice"></label><label class="theme-choice">石墨<span aria-hidden="true" class="swatch swatch-ink"></span><input type="radio" name="page-theme" value="ink"></label><label class="theme-choice">暗紫<span aria-hidden="true" class="swatch swatch-violet"></span><input type="radio" name="page-theme" value="violet"></label><label class="theme-choice">暖杏<span aria-hidden="true" class="swatch swatch-paper"></span><input type="radio" name="page-theme" value="paper"></label><label class="theme-choice">黑白<span aria-hidden="true" class="swatch swatch-mono"></span><input type="radio" name="page-theme" value="mono"></label></fieldset></div></details><button id="go-settings" class="settings-link secondary" type="button">设置 <span aria-hidden="true">↘</span></button></div>
+</header>
+<main id="main">
+<header class="intro">
+<p class="kicker"><span></span> DAILY LISTENING</p>
+<h1>今天，先听一会儿<span>。</span></h1>
+<p id="destination" class="lede">先听一点英语，再去放松。</p>
+</header>
+<section class="session-grid" aria-label="今日听力训练">
+<section class="watch" aria-labelledby="watch-title">
+<header class="watch-head">
+<div><p class="kicker">NOW PLAYING</p><h2 id="watch-title">今天的听力</h2><p id="lesson-label" class="hint">导入本地英语视频，开始今天的练习。</p></div>
+</header>
+<div class="screen">
+<div id="empty" class="empty"><span class="empty-disc" aria-hidden="true">▷</span><strong>还没有可播放的视频</strong><span>在下方设置导入 MP4 或 WebM。</span></div>
+<video id="video" hidden controls controlslist="nodownload noremoteplayback" playsinline preload="metadata" disablepictureinpicture disableremoteplayback></video>
+</div>
+<div class="controls">
+<button id="play" hidden type="button">播放</button>
+<button id="caption-toggle" hidden type="button" class="secondary">字幕：开</button>
+<button id="volume" hidden type="button" class="secondary">静音</button>
+<label id="speed-choice" hidden>倍速
+<select id="speed" aria-label="播放速度">
+<option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="0.85" selected>0.85×</option><option value="1">1×</option>
+<option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+</select></label>
+<button id="fullscreen" hidden type="button" class="secondary">全屏</button>
+</div>
+<p id="credits" hidden class="credits"></p>
+</section>
+<aside class="timer" aria-labelledby="timer-title">
+<p class="kicker"><span></span> FOCUS TIMER</p>
+<h2 id="timer-title">今天还要听</h2>
+<div id="counter" class="counter" aria-live="off">10:00</div>
+<progress id="progress" max="600000" value="0" aria-label="今天的播放进度"></progress>
+<p id="mode" role="status" class="timer-mode"></p>
+<p class="hint">只累计前台、有声的实际播放时间。倍速不改变十分钟门槛，拖进度不计时。</p>
+<p class="timer-note"><strong>满十分钟只解锁</strong><br>播放器会保留，可以继续看。</p>
+<button id="continue" hidden type="button">继续访问</button>
+</aside>
+</section>
+<aside id="recommendation" class="recommendation" hidden aria-labelledby="recommendation-title">
+<div><p class="kicker">FROM THE WEB</p><h2 id="recommendation-title">今日推荐</h2></div>
+<div><a id="recommendation-link" target="_blank" rel="noopener noreferrer"></a><p id="recommendation-note" class="hint"></p><p class="hint">站外选看，不计入上面的十分钟。</p></div>
+</aside>
+<section id="settings" class="settings" aria-labelledby="settings-title">
+<div class="section-head"><div><p class="kicker">PREFERENCES</p><h2 id="settings-title" tabindex="-1">设置</h2></div><p class="hint">本地运行 · 按需授权</p></div>
+<div class="settings-stack">
+<details>
+<summary><span class="summary-no">01</span><span>素材与字幕</span><span class="summary-icon" aria-hidden="true"></span></summary>
+<div class="settings-body">
+<p class="hint">可导入自己的英语视频。未同步到可播的每日素材时，从本地列表轮换。视频、字幕和进度只保存在本机。</p>
+<div class="files">
+<label class="field">追加英语视频 <input id="file" type="file" accept="video/*,.mp4,.webm"></label>
+<button id="restore" hidden type="button" class="secondary quiet">补回示例视频</button>
+</div>
+<ul id="playlist" class="hosts"></ul>
+<div class="files">
+<label class="field">字幕所属视频 <select id="cap-target"></select></label>
+<label class="field">英文字幕（SRT / VTT） <input id="captions" type="file" accept=".srt,.vtt"></label>
+</div>
+</div>
+</details>
+<details>
+<summary><span class="summary-no">02</span><span>启动与网页拦截</span><span class="summary-icon" aria-hidden="true"></span></summary>
+<div class="settings-body">
+<label class="check"><input id="startup" type="checkbox" checked> 打开浏览器时先显示听力页</label>
+<div class="permission">
+<h3 id="strict-title">全站强制模式</h3>
+<p id="strict-state" class="hint"></p>
+<p class="hint">仅在你授权后拦截普通网页。扩展不收集或上传网页内容，浏览器的扩展管理页仍可打开。</p>
+<button id="strict" type="button">授权并开启全站强制</button>
+</div>
+<form id="host-form" class="host-form">
+<label class="field" for="host">只拦指定网站时，添加域名
+<input id="host" name="host" type="text" inputmode="url" placeholder="例如 www.bilibili.com" autocomplete="off" required></label>
+<button id="add" type="submit">添加并授权</button>
+</form>
+<ul id="hosts" class="hosts"></ul>
+<button id="pause" type="button" class="secondary">暂停拦截</button>
+</div>
+</details>
+</div>
+<div class="settings-feedback">
+<button id="reload-extension" hidden type="button">重新加载扩展</button>
+<p id="status" role="status"></p>
+</div>
+</section>
+</main>
+<footer><span>ENGLISH FIRST</span><span>每天十分钟，听完由你决定。</span></footer>
+</div>
+</body>
+</html>
