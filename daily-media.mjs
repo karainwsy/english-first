@@ -1,5 +1,5 @@
 // Only trusted, local package files can contribute timed daily media.
-export const maxDailyFile=128*1024*1024;
+export const maxDailyFile=160*1024*1024;
 const maxCaptions=256*1024;
 export function isoDay(localDay) {
   const f=String(localDay).match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
