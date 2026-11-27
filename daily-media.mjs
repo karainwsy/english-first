@@ -16,6 +16,9 @@ export function dailyMeta(raw, localDay) {
   return {
     day:date,title:raw.title.trim().slice(0,150),id:m.id,slot:m.slot,format:m.format??"mp4",durationSec:m.durationSec,
     videoSha256:m.videoSha256,captionsSha256:m.captionsSha256,
+    aiSelected:raw.aiSelected===true,
+    aiWords:Array.isArray(raw.aiWords)?[...new Set(raw.aiWords.slice(0,44)
+      .filter(w=>typeof w==="string"&&/^[a-z][a-z'-]{1,39}$/.test(w)))]:[],
     attribution:typeof m.attribution==="string"?m.attribution.trim().slice(0,350):"",
   };
 }

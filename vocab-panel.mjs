@@ -1,5 +1,5 @@
 import {parseWordList} from './vocab-core.mjs';
-import {SCHEMA,defaultLex,SPACES,dayOf,empty,mergeLegacy,selectBatch,enrollment,grade,dueRows,question,matches} from './study-engine.mjs';
+import {SCHEMA,defaultLex,SPACES,dayOf,empty,mergeLegacy,selectModelBatch,enrollment,grade,dueRows,question,matches} from './study-engine.mjs';
 const l=globalThis.chrome?.storage?.local;
 const oldList='efvocab:v1:custom';
 const item=(tag,cl='',s='')=>{const n=document.createElement(tag);n.className=cl;n.textContent=s;return n;};
@@ -67,12 +67,12 @@ function mount(){
    if(!ready||!cues.length)return;
    const day=getDay();
    if(state.batches[day])return;
-   const all=[...cues];
+   const all=[...cues], nominations=[...(v.efAiWords??[])];
    const label=(document.querySelector('#lesson-label')?.textContent||'当前视频').trim().slice(0,120);
    try{
      await save(s=>{
        if(s.batches[day])return;
-       const words=selectBatch(all,s.custom.length?new Map(s.custom):defaultLex,new Set(Object.keys(s.words)),s.limit);
+       const words=selectModelBatch(all,s.custom.length?new Map(s.custom):defaultLex,new Set(Object.keys(s.words)),s.limit,nominations);
        if(words.length)s.batches[day]={label,cards:words,results:{},created:Date.now()};
      });if(!quiz)render();
    }catch{say('今天的词单未能保存。');}

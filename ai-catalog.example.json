@@ -1,0 +1,22 @@
+[
+  {
+    "id": "my-first-video",
+    "title": "Your first English video",
+    "durationSec": 620,
+    "level": "B1",
+    "topic": "Science",
+    "video": "./materials/video-one.mp4",
+    "captions": "./materials/video-one.en.vtt",
+    "attribution": "Replace with the publisher and usage terms"
+  },
+  {
+    "id": "my-second-video",
+    "title": "Your second English video",
+    "durationSec": 715,
+    "level": "B2",
+    "topic": "Music",
+    "video": "./materials/video-two.webm",
+    "captions": "./materials/video-two.en.vtt",
+    "attribution": "Replace with the publisher and usage terms"
+  }
+]

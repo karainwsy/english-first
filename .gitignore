@@ -1,4 +1,7 @@
 /daily-recommendation.json
+/ai-catalog.local.json
+/.ef-ai.lock
+/materials/
 /media/
 *.mp4
 *.webm

@@ -42,6 +42,27 @@ function fullCandidates(cues,lex,exclude){
     .map(c=>({...c,score:Math.log2(1+c.hits)*4+Math.min(c.key.length,12)*.14+(c.gloss?1.7:0)+Math.min(1,c.seconds/last)*.2}))
     .sort((a,b)=>b.score-a.score||a.seconds-b.seconds||a.key.localeCompare(b.key));
 }
+export function modelCandidates(cues,lex){
+  return fullCandidates(cues,lex,new Set()).slice(0,100);
+}
+export function selectModelBatch(cues,lex,excluded,count,keys){
+  const fallback=selectBatch(cues,lex,excluded,count);
+  if(!Array.isArray(keys)||!keys.length)return fallback;
+  const n=Math.max(4,Math.min(30,Math.trunc(+count)||DEFAULT_COUNT));
+  // Feed only nominates terms. Extract the timed evidence from the actual player track.
+  const nominations=keys.filter(k=>typeof k==='string'&&/^[a-z][a-z'-]{1,39}$/.test(k)).slice(0,44);
+  const keyMap=new Map(nominations.map(k=>[k,lex.get(k)||TOPICAL.get(k)||'']));
+  const actual=new Map(extractCards(cues,keyMap).filter(c=>!excluded.has(c.key)).map(c=>[c.key,{
+    ...c,type:lex.has(c.key)?'ielts':'topic',unverifiedGloss:!c.gloss
+  }]));
+  const selected=new Map();
+  for(const k of [...nominations,...fallback.map(c=>c.key)]){
+    const card=actual.get(k)||fallback.find(c=>c.key===k);
+    if(card&&!selected.has(k))selected.set(k,card);
+    if(selected.size===n)break;
+  }
+  return [...selected.values()].sort((a,b)=>a.seconds-b.seconds||a.key.localeCompare(b.key));
+}
 export function selectBatch(cues,lex,excluded=new Set(),count=DEFAULT_COUNT){
   const n=Math.max(4,Math.min(30,Math.trunc(+count)||DEFAULT_COUNT));
   const all=fullCandidates(cues,lex,excluded);

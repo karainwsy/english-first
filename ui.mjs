@@ -97,7 +97,8 @@ function applyCaptionMode() {
   if (track) track.track.mode = captionEnabled ? "showing" : "hidden";
   by("caption-toggle").textContent = "字幕：" + (captionEnabled ? "开" : "关");
 }
-function setSource(source, label) {
+function setSource(source, label, aiWords=[]) {
+  video.efAiWords=aiWords;
   clearTimeout(mediaTimeout);
   video.pause();
   if (url?.startsWith("blob:")) URL.revokeObjectURL(url);
@@ -270,7 +271,7 @@ async function loadClip(id = state?.lesson, force = false) {
     if(daily){
       const movie=await verifiedDailyAssets(daily,path=>chrome.runtime.getURL(path));
       if(generation!==loadGeneration || state.lesson!==id)return;
-      setSource(movie.media,"今日推荐 · "+daily.title);
+      setSource(movie.media,(daily.aiSelected?"AI 今日推荐 · ":"今日推荐 · ")+daily.title,daily.aiWords);
       attachCaptions(movie.captions);
       by("credits").hidden=!daily.attribution;
       by("credits").textContent=daily.attribution;
